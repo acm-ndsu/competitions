@@ -1,0 +1,20 @@
+.gitconfig
+
+# backup files
+*.*~
+*.swp
+
+# ghc
+*.hi
+*.o
+*.hs.swp
+
+# python
+*.pyc
+__pycache__
+
+# freaking windows
+*.db
+
+# java
+*.class
