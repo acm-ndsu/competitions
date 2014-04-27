@@ -41,9 +41,8 @@ makeType4 n l = concat [spaces, text, spaces]
 
 -- | abstraction for making a letter
 makeLetter :: Int -> String -> [(String -> String)] -> String
-makeLetter n l gfs = join "\n" expandRows 
-  where rows       = zipWith id gfs . repeat $ l
-        expandRows = map (join "\n"  . take n . repeat) rows
+makeLetter n l gfs = join "\n" . map (expandRows n) $ rows
+  where rows = zipWith id gfs . repeat $ l
 
 -- | make an E
 makeE :: Int -> String
