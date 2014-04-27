@@ -41,8 +41,9 @@ makeType4 n l = concat [spaces, text, spaces]
 
 -- | abstraction for making a letter
 makeLetter :: Int -> String -> [(String -> String)] -> String
-makeLetter n l gfs = join "\n" . map (expandRows n) $ rows
-  where rows = zipWith id gfs . repeat $ l
+makeLetter n l gfs = join "\n" . map expandRows $ rows
+  where rows       = zipWith id gfs . repeat $ l
+        expandRows = join "\n" . take n . repeat
 
 -- | make an E
 makeE :: Int -> String
@@ -93,10 +94,6 @@ makeEPIC :: Int -> String
 makeEPIC 0 = join "\n" ["E", "P", "I", "C"]
 makeEPIC n = join (makeNewLines n) . epic $ n
   where epic = zipWith id [makeE, makeP, makeI, makeC] . repeat
-
--- | repeat the row n times
-expandRows :: Int ->  String -> String
-expandRows n = join "\n" . take n . repeat
 
 -- | join strings with delimiter
 join :: [a] -> [[a]] -> [a]
