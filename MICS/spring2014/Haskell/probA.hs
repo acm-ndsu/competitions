@@ -1,9 +1,13 @@
 import Data.List (intersperse)
 import System.Environment (getArgs)
 
+-- | author  : Joseph Matthew Ching
 -- | compile : ghc --make probA.hs
 --          or ghc --make probA
 -- | run     : ./probA int
+-- | solve the problem using divide and conquer. Start with creating 4 small
+--   patterns and from there, use them to build the larger letter patterns.
+
 
 -- | read an int from first argument
 main :: IO ()
