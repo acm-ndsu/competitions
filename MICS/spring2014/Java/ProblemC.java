@@ -5,6 +5,12 @@ public class ProblemC {
 	static char [][] map;
 	static int matches=0;
 	
+	public static void shiftOne(int [] pos){
+		for(int i = 0;i<pos.length;i++){
+			pos[i] = pos[i] + 1;
+		}
+	}
+	
 	public static int [] match(int centerX, int centerY, String word){
 		int [] pos = new int[2];
 		int offset = word.length()-1;
@@ -13,30 +19,35 @@ public class ProblemC {
 		int right = offset;
 		int left = -offset;
 		if(match(up, 0, centerX, centerY, word)){ // right
-			pos[0] = centerX + up + 1;
+			pos[0] = centerX + up;
 			pos[1] = centerY;
 		} else if(match(down, 0, centerX, centerY, word)){
-			pos[0] = centerX + down + 1;
+			pos[0] = centerX + down;
 			pos[1] = centerY;
 		} else if(match(0, left, centerX, centerY, word)){
 			pos[0] = centerX;
-			pos[1] = centerY + left + 1;
+			pos[1] = centerY + left ;
 		} else if(match(0, right, centerX, centerY, word)){
 			pos[0] = centerX;
-			pos[1] = centerY + right + 1;
+			pos[1] = centerY + right;
 		}else if(match(up, right, centerX, centerY, word)){
-			pos[0] = centerX + up + 1;
-			pos[1] = centerY + right + 1;
+			pos[0] = centerX + up;
+			pos[1] = centerY + right;
 		} else if(match(up, left, centerX, centerY, word)){
-			pos[0] = centerX + up + 1;
-			pos[1] = centerY + left + 1;
+			pos[0] = centerX + up;
+			pos[1] = centerY + left;
 		} else if(match(down, left, centerX, centerY, word)){
-			pos[0] = centerX + down + 1;
-			pos[1] = centerY + left + 1;
+			pos[0] = centerX + down;
+			pos[1] = centerY + left;
 		} else if(match(down, right, centerX, centerY, word)){
-			pos[0] = centerX + down + 1;
-			pos[1] = centerY + right + 1;
+			pos[0] = centerX + down;
+			pos[1] = centerY + right;
+		} else {
+			pos[0] = -2;
+			pos[1] = -2;
 		}
+		
+		shiftOne(pos);
 		return pos;
 	}
 	
@@ -83,7 +94,7 @@ public class ProblemC {
 				for(int j=0;j<size && !found;j++){
 					if(word.charAt(0) ==map[i][j]){
 						int [] pos = match(i,j, word);
-						if(pos[0] != 0 && pos[1] !=0){ // map starts at {1,1} indexing for results
+						if(pos[0] > 0 && pos[1] > 0){ // map starts at {1,1} indexing for results
 							found = true;
 							System.out.println(word + ": (" + (i+1) +  "," + (j+1) + ") to " +  
 													    "(" + pos[0] + "," + pos[1] + ")");
