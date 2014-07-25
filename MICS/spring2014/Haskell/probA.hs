@@ -1,10 +1,8 @@
-import Data.List (intersperse)
 import System.Environment (getArgs)
+import Util (joinList)
 
 -- | author  : Joseph Matthew Ching
--- | compile : ghc --make probA.hs
---          or ghc --make probA
--- | run     : ./probA int
+-- | run     : runhaskell probA.hs int
 -- | solve the problem using divide and conquer. Start with creating 4 small
 --   patterns and from there, use them to build the larger letter patterns.
 
@@ -45,9 +43,9 @@ makeType4 n l = concat [spaces, text, spaces]
 
 -- | abstraction for making a letter
 makeLetter :: Int -> String -> [(String -> String)] -> String
-makeLetter n l gfs = join "\n" . map expandRows $ rows
+makeLetter n l gfs = joinList "\n" . map expandRows $ rows
   where rows       = zipWith id gfs . repeat $ l
-        expandRows = join "\n" . take n . repeat
+        expandRows = joinList "\n" . take n . repeat
 
 -- | make an E
 makeE :: Int -> String
@@ -95,10 +93,6 @@ makeNewLines n = makeBlock (n+1) "\n"
 
 -- | make epic
 makeEPIC :: Int -> String
-makeEPIC 0 = join "\n" ["E", "P", "I", "C"]
-makeEPIC n = join (makeNewLines n) . epic $ n
+makeEPIC 0 = joinList "\n" ["E", "P", "I", "C"]
+makeEPIC n = joinList (makeNewLines n) . epic $ n
   where epic = zipWith id [makeE, makeP, makeI, makeC] . repeat
-
--- | join strings with delimiter
-join :: [a] -> [[a]] -> [a]
-join d = concat . intersperse d
